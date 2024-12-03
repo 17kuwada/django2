@@ -1,0 +1,52 @@
+{% load static %}
+
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="auther" content="">
+
+
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="icon" type="image/x-icon" href="{% static 'favicon.ico' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <div id="page">
+        <!-- Navigation -->
+        <nav>
+            <div>
+                <a href="{% url 'diary:index' %}">
+                    <h1>PRIVATE DIARY</h1>
+                </a>
+            </div>
+            <div class="menu">
+                <ul>
+                    <li><a href="#">お問い合わせ</a>　</li>
+                    <li><a href="#">Sign up</a>　</li>
+                    <li><a href="#">Log in</a>　</li>
+                </ul>
+            </div>
+        </nav>
+
+
+        <!-- Header -->
+        {% block header %}{% endblock %}
+
+
+        <!-- Contents -->
+        {% block contents %}{% endblock %}
+
+
+        <!-- Footer -->
+        <footer>
+            <div>Copyright &copy; Private Diary inc. 2024</div>
+        </footer>
+    </div>
+    <!-- JavaScript -->
+    <script src="{% static 'js/index.js' %}"></script>
+</body>
+</html>

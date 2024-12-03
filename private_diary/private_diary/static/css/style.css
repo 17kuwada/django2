@@ -1,0 +1,16 @@
+@charset "UTF-8";
+
+
+html {
+    font-size: 16pt;
+
+
+    background-image: url(../images/wall.jpg);
+    background-position: center;
+    background-size: cover;
+}
+
+
+body {
+    color: white;
+}

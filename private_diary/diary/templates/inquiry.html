@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+
+{% block title %}お問い合わせ|Private Diary{% endblock %}
+
+
+{% block header %}{% endblock %}
+
+
+{% block contents %}
+<div class="container">
+    <form method="post" class="inquiry">
+        {% csrf_token %}
+        {{ form.non_field_errors }}
+
+
+        {% for field in form %}
+            <section>
+                <label for="{{ field.id_for_label }}">
+                    <span>{{ field.label }}</span>
+                </label>
+                {{ field }}
+                {{ field.errors }}
+            </section>
+        {% endfor %}
+        <button type='submit'>送信</button>
+    </form>
+</div>
+{% endblock %}
