@@ -62,3 +62,24 @@ class InquiryForm(forms.Form):
 
         mail = EmailMessage(subject=subject,body=body,to=to_list,cc=cc_list,bcc=bcc_list)
         mail.send()
+
+from .models import Diary
+
+# 日記入力フォーム定義
+class DiaryCreateForm(forms.ModelForm):
+    # 入力フォームの下になるモデルと使用するフィールドを指定する
+    class Meta:
+        model = Diary
+        fields = ('title','content','photo1','photo2','photo3',)
+    
+    # コンストラクタ
+    #   self     今回生成されたインスタンス
+    #   *args    タプルによる引数
+    #   **kwargs ディクショナリによる引数
+    def __init__(self, *args , ** kwargs):
+        # スーパークラスのコンストラクタを呼ぶ
+        # → HTMLの基本形が作られる
+        super().__init__(*args,**kwargs)
+        # 出来た入力エレメントにclass属性を割り当てる
+        for field in self.fields.values():
+            field.widget.attrs['class'] = 'form-control'

@@ -1,6 +1,5 @@
 {% load static %}
 
-
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -12,6 +11,11 @@
 
     <title>{% block title %}{% endblock %}</title>
     <link rel="icon" type="image/x-icon" href="{% static 'favicon.ico' %}">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Aoboshi+One&family=Kiwi+Maru&family=M+PLUS+1+Code:wght@100..700&family=M+PLUS+1:wght@100..900&family=Yomogi&family=Yusei+Magic&family=Zen+Kaku+Gothic+New:wght@300;400&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 <body>
@@ -25,9 +29,14 @@
             </div>
             <div class="menu">
                 <ul>
-                    <li><a href="#">お問い合わせ</a>　</li>
-                    <li><a href="#">Sign up</a>　</li>
-                    <li><a href="#">Log in</a>　</li>
+                    <li><a href="{% url 'diary:inquiry' %}">お問い合わせ</a>　</li>
+{% if user.is_authenticated %}
+                    <li><a href="{% url 'diary:diary_list' %}">日記一覧</a></li>
+                    <li><a href="{% url 'account_logout' %}">Log out</a>　</li>
+{% else %}
+                    <li><a href="{% url 'account_signup' %}">Sign up</a>　</li>
+                    <li><a href="{% url 'account_login' %}">Log in</a></li>
+{% endif %}                
                 </ul>
             </div>
         </nav>
@@ -35,6 +44,18 @@
 
         <!-- Header -->
         {% block header %}{% endblock %}
+
+        {% if messages %}
+        <div class="messages success">
+            <ul>
+                {% for message in messages %}
+                <li {% if message.tags %} class="{{ message.tag }}" {% endif %}>
+                    {{ message }}
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
 
 
         <!-- Contents -->

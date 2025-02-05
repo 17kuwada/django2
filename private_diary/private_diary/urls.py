@@ -16,8 +16,19 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.contrib.staticfiles.urls import static
+
+from . import settings,settings_dev
 
 urlpatterns = [
     path("admin/", admin.site.urls),
+    # diaryアプリへのルートを定義する
+    # 第一引数はURL上のアプリのフォルダを示す
+    # ""はトップフォルダとなる
     path("", include("diary.urls")),
+    path("acounts/",include("allauth.urls")),
 ]
+
+# メディア配信用設定
+#   /media/へアクセスしたときに開くフォルダを関連付ける
+urlpatterns += static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

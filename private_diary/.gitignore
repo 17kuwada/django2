@@ -1,3 +1,10 @@
 .vscode/
 
 __pycache__/
+
+.DS_Store
+
+# pillowとmediaフォルダをGitの対象外とする
+pillow/
+# アップロードした画像を保存するディレクトリ
+media/

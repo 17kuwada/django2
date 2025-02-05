@@ -1,0 +1,59 @@
+{% extends 'base.html'%}
+{% load static %}
+
+{% block title %}日記一覧 | private Diary {% endblock %}
+
+{% block active_diary_list %}active{% endblock %}
+
+{% block contents %}
+<div>
+    <div>
+        <div>
+            <h2>
+                <a href="{% url 'diary:diary_create' %}">新規作成</a>
+            </h2>
+        </div>
+        {% if is_pagenated %}
+            <ul class="paginated">
+                {% if page_obj.has_previous %}
+                <li>
+                    <a href="?page={{page_obj.previous_page_number}}">
+                        <span>&nbsp;&laquo;&nbsp;</span>
+                    </a>
+                </li>
+                {% endif %}
+
+                {% for page_num in page_obj.paginator.page_range %}
+                    <li>
+                        {% if page_num == page_obj.number %}
+                            <span class="active">&nbsp;{{ page_num }}&nbsp;</span>
+                        {% else %}
+                            <a href="?page={{ page_num }}">&nbsp;{{ page_num }}&nbsp;</a>
+                        {% endif %}
+                    </li>
+                {% endfor %}
+
+                {% if page_obj.has_next %}
+                <li>
+                    <a href="?page={{page_obj.next_page_number}}">
+                        <span>&nbsp;&raquo;&nbsp;</span>
+                    </a>
+                </li>
+                {% endif %}
+            </ul>
+        {% endif %}
+
+        {% for diary in diary_list %}
+            <section>
+                <a href="{% url 'diary:diary_detail' diary.pk %}">
+                    <h2>{{ diary.title }}</h2>
+                    <h3>{{ diary.content|truncatechars:20}}</h3>
+                </a>
+                <span>{{ diary.created_at }}</span>
+            </section>
+        {% empty %}
+            <p>現在日記はありません</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
